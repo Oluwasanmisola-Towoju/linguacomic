@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LingoComic Prototype</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <main class="app-shell">
+    <header class="topbar">
+      <h1>LingoComic</h1>
+      <p>Localize comic pages with AI bubble translation.</p>
+    </header>
+
+    <section class="workspace">
+      <div id="dropZone" class="drop-zone">
+        <input id="fileInput" type="file" accept="image/png, image/jpeg" hidden />
+        <p class="drop-title">Drop comic page here</p>
+        <p class="drop-subtitle">PNG or JPEG</p>
+        <button id="pickFileBtn" class="btn btn-secondary">Choose File</button>
+      </div>
+
+      <div class="controls">
+        <label for="languageSelect">Target language</label>
+        <select id="languageSelect">
+          <option value="Nigerian Pidgin">Nigerian Pidgin</option>
+          <option value="Yoruba">Yoruba</option>
+          <option value="Swahili">Swahili</option>
+          <option value="French">French</option>
+          <option value="Spanish">Spanish</option>
+          <option value="Arabic">Arabic</option>
+        </select>
+        <button id="processBtn" class="btn btn-primary" disabled>Translate Comic</button>
+      </div>
+    </section>
+
+    <section class="results">
+      <article>
+        <h2>Original</h2>
+        <img id="originalPreview" alt="Original upload preview" />
+      </article>
+      <article>
+        <h2>Processed</h2>
+        <img id="processedPreview" alt="Processed comic preview" />
+        <a id="downloadBtn" class="btn btn-primary" download="lingocomic-output.png" style="display:none;">Download Result</a>
+      </article>
+    </section>
+
+    <section class="status-panel">
+      <p id="statusText">Upload a comic page to begin.</p>
+      <pre id="ocrSummary"></pre>
+    </section>
+  </main>
+
+  <script src="./script.js"></script>
+</body>
+</html>
