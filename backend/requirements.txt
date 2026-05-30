@@ -9,6 +9,7 @@ colorama==0.4.6
 cryptography==48.0.0
 distro==1.9.0
 fastapi==0.136.3
+git-filter-repo==2.47.0
 google-api-core==2.30.3
 google-auth==2.53.0
 google-cloud-vision==3.14.0
@@ -34,6 +35,7 @@ pyasn1==0.6.3
 pyasn1_modules==0.4.2
 pycparser==3.0
 pydantic==2.13.4
+pydantic-settings==2.14.1
 pydantic_core==2.46.4
 Pygments==2.20.0
 pytest==9.0.3
@@ -50,4 +52,3 @@ urllib3==2.7.0
 uvicorn==0.47.0
 watchfiles==1.2.0
 websockets==16.0
-pydantic_settings==2.0.3
