@@ -22,6 +22,25 @@ export async function uploadComic(file) {
     return res.json(); // should return the job_id, filename, image_url, width and height
 }
 
+export async function detectBubbles(jobId, filename) {
+    const res = await fetch(`${BASE_URL}/api/detect`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        // Translates React payload to match FastAPI Pydantic DetectRequest schema
+        body: JSON.stringify({ job_id: jobId, filename })
+    });
+
+    if (!res.ok) {
+        const err = await res.json().catch(() => ({
+            detail: "Detection failed"
+        }));
+
+        throw new Error(err.detail || "Detection failed");
+    }
+
+    return res.json(); 
+}
+
 // utility function to resolve relative image paths to absolute backend URL
 export function getImageURL(path) {
     return `${BASE_URL}${path}`;
