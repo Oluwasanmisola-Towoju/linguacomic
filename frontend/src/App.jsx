@@ -1,32 +1,30 @@
-import { useState } from 'react';
 import './styles/globals.css';
 import UploadZone from './components/UploadZone/UploadZone';
 import ComicWorkspace from './components/ComicWorkspace/ComicWorkspace';
-import { uploadComic } from './services/api';
+import { useComicProcessor } from './services/hooks/useComicProcessor';
 import styles from './App.module.css';
 
 export default function App() {
-  const [job, setJob] = useState(null);
-  const [isUploading, setIsUploading] = useState(false);
-  const [uploadError, setUploadError] = useState('');
+  const processor = useComicProcessor();
 
-  const handleUpload = async (file) => {
-    setIsUploading(true);
-    setUploadError('');
-    try {
-      const result = await uploadComic(file);
-      setJob(result);
-    } catch (err) {
-      setUploadError(err.message);
-    } finally {
-      setIsUploading(false);
-    }
-  };
-
-  const handleReset = () => {
-    setJob(null);
-    setUploadError('');
-  };
+  // clean destructuring of all state and actions
+  const {
+    job,
+    detection,
+    bubbles,
+    selectedId,
+    isUploading,
+    isDetecting,
+    uploadError,
+    detectError,
+    handleUpload,
+    handleDetect,
+    updateBubbleText,
+    removeBubble,
+    setSelectedId,
+    reset,
+    warning
+  } = processor
 
   return (
     <div className={styles.layout}>
@@ -37,7 +35,7 @@ export default function App() {
         </div>
         <nav className={styles.nav}>
           {job && (
-            <button className={styles.resetBtn} onClick={handleReset}>
+            <button className={styles.resetBtn} onClick={reset}>
               ← New Upload
             </button>
           )}
@@ -52,10 +50,9 @@ export default function App() {
               <h1 className={styles.title}>Translate comics<br />into any language.</h1>
               <p className={styles.subtitle}>
                 Upload a comic page. AI detects the speech bubbles, extracts the text,
-                translates it and then redraws it back into the original bubbles.
+                translates it — then redraws it back into the original bubbles.
               </p>
             </div>
-
             {isUploading ? (
               <div className={styles.uploading}>
                 <div className={styles.spinner} />
@@ -64,15 +61,22 @@ export default function App() {
             ) : (
               <UploadZone onUpload={handleUpload} />
             )}
-
-            {uploadError && (
-              <p className={styles.uploadError}>{uploadError}</p>
-            )}
+            {uploadError && <p className={styles.uploadError}>{uploadError}</p>}
           </div>
         ) : (
-          <div className={styles.workspaceView}>
-            <ComicWorkspace job={job} />
-          </div>
+          <ComicWorkspace
+            job={job}
+            detection={detection}
+            bubbles={bubbles}
+            selectedId={selectedId}
+            isDetecting={isDetecting}
+            detectError={detectError}
+            warning={warning}
+            onDetect={handleDetect}
+            onSelect={setSelectedId}
+            onUpdateText={updateBubbleText}
+            onRemove={removeBubble}
+          />
         )}
       </main>
     </div>

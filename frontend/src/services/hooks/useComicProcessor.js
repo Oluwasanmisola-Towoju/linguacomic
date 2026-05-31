@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import { uploadComic, detectBubbles } from '../services/api';
+import { uploadComic, detectBubbles } from '../api'
 
 export function useComicProcessor() {
     const [job, setJob] = useState(null);
