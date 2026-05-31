@@ -1,6 +1,6 @@
 .overlayContainer {
   position: absolute;
-  inset: 0;
+  inset: 0; /* allows click to pass through to the image if client doesn't hit an SVG box*/
   pointer-events: none;
 }
 
@@ -8,7 +8,7 @@
   position: absolute;
   inset: 0;
   width: 100%;
-  height: 100%;
+  height: 100%; /* re-enables clicks for the drawn SVG elements */
   pointer-events: all;
   overflow: visible;
 }
