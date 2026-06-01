@@ -37,7 +37,7 @@ export default function ComicWorkspace({
         <div className={styles.canvasArea}>
           <div className={styles.imageWrap}>
             <img
-              src={getImageUrl(job.image_url)}
+              src={getImageURL(job.image_url)}
               alt="Uploaded comic page"
               className={styles.comicImage}
             />
